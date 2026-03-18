@@ -31,17 +31,53 @@
         .modal-content { background: white; padding: 30px; border-radius: 15px; max-width: 500px; width: 90%; text-align: center; position: relative; animation: zoomIn 0.3s; }
         @keyframes zoomIn { from {transform: scale(0.7); opacity: 0;} to {transform: scale(1); opacity: 1;} }
         .close-modal { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: #666; }
+        
+        /* YANGI: RASMDAGI KABI MAXSUS ALERT OYNASI STILI */
+        .custom-alert-box {
+            display: none; position: fixed; top: 10%; right: 5%; 
+            background: #fdfdf5; border-radius: 20px; padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 3000;
+            width: 350px; border-left: 10px solid #4c6b22; animation: slideIn 0.4s ease-out;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .custom-alert-box h4 { margin: 0 0 10px; color: #333; font-size: 18px; }
+        .custom-alert-box p { margin: 0 0 20px; color: #555; }
+        .ok-btn { 
+            background: #4c6b22; color: white; border: 2px solid #4c6b22; 
+            padding: 8px 30px; border-radius: 25px; cursor: pointer; 
+            font-weight: bold; float: right; transition: 0.3s;
+        }
+        .ok-btn:hover { background: white; color: #4c6b22; }
+
         .cart-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
         .remove-btn { background: #ff4d4d; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; }
         .total-box { background: #001e4e; color: white; padding: 20px; border-radius: 12px; text-align: right; margin-top: 20px; font-size: 22px; }
         .contact-card { background: white; padding: 40px; border-radius: 15px; max-width: 500px; margin: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+
+        /* BOSH SAHIFA STILI */
+        .hero-section { text-align: center; padding: 100px 20px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .hero-section h1 { font-size: 40px; color: #001e4e; margin-bottom: 20px; }
+        .hero-section p { font-size: 18px; color: #666; margin-bottom: 40px; }
+        .hero-buttons { display: flex; gap: 20px; justify-content: center; }
+        .hero-buttons .btn { width: 250px; font-size: 18px; padding: 15px; }
+        .acc-btn-hero { background: #001e4e !important; }
+        .acc-btn-hero:hover { background: #ceab5d !important; }
     </style>
 </head>
+
 <body>
+
+<div id="customAlert" class="custom-alert-box">
+    <h4>This page says</h4>
+    <p id="alertMessage">Xabaringiz yuborildi!</p>
+    <button class="ok-btn" onclick="closeAlert()">OK</button>
+</div>
+
 <header>
     <div style="font-weight: 900; font-size: 22px; letter-spacing: 1px;">REAL MADRID CF</div>
     <nav>
+        <a onclick="showSection('welcome')">Bosh sahifa</a>
         <a onclick="showSection('home')">Asosiy formalar</a>
         <a onclick="showSection('acc')">Aksessuarlar</a>
         <a onclick="showSection('cart')">Savatchangiz</a>
@@ -49,149 +85,127 @@
     </nav>
     <div class="cart-badge">Savat: <span id="cart-count">0</span></div>
 </header>
-<div id="home" class="page-section active-section">
-    <h2>Asosiy Formalar </h2>
+
+<div id="welcome" class="page-section active-section">
+    <div class="hero-section">
+        <h1>REAL MADRID RASMIY DO'KONIGA XUSH KELIBSIZ!</h1>
+        <p>Qirollik klubining eng so'nggi liboslari, aksessuarlari va eksklyuziv mahsulotlarini bizning do'konimizdan topishingiz mumkin. Hala Madrid!</p>
+        <div class="hero-buttons">
+            <button class="btn" onclick="showSection('home')">Asosiy Formalar</button>
+            <button class="btn acc-btn-hero" onclick="showSection('acc')">Aksessuarlar</button>
+        </div>
+    </div>
+</div>
+
+<div id="home" class="page-section">
+    <h2>Asosiy Formalar</h2>
     <div class="grid-container">
         <div class="card">
-            <div class="img-container" onclick="openModal('Home Kit 25/26', 'Real Madridning yangi mavsum uchun an\'anaviy oq rangli asosiy formasi. Yengil va nafas oluvchi mato.', 'https://scontent.ftas1-1.fna.fbcdn.net/v/t51.75761-15/481372019_18060350389976617_5979284437859512917_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=Xazli0oyAhgQ7kNvwEZPQMW&_nc_oc=Adn1oVC0sXKQk2Ehj-1HThS82Z4h9RIZKMrY1v-qLlKEOdrOOlILuq4FoGLXbq2Sz-0&_nc_zt=23&_nc_ht=scontent.ftas1-1.fna&_nc_gid=4U-jGzcS8WWTF51qht0FzA&_nc_ss=8&oh=00_AfwTwhBYU2uuLdZ7zBQurLn78wborFbA4rPJMnpmzHxlCA&oe=69B728E8')">
+            <div class="img-container" onclick="openModal('Home Kit 25/26', 'Real Madridning yangi mavsum uchun an\'anaviy oq rangli asosiy formasi.', 'https://scontent.ftas1-1.fna.fbcdn.net/v/t51.75761-15/481372019_18060350389976617_5979284437859512917_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=Xazli0oyAhgQ7kNvwEZPQMW&_nc_oc=Adn1oVC0sXKQk2Ehj-1HThS82Z4h9RIZKMrY1v-qLlKEOdrOOlILuq4FoGLXbq2Sz-0&_nc_zt=23&_nc_ht=scontent.ftas1-1.fna&_nc_gid=4U-jGzcS8WWTF51qht0FzA&_nc_ss=8&oh=00_AfwTwhBYU2uuLdZ7zBQurLn78wborFbA4rPJMnpmzHxlCA&oe=69B728E8')">
                 <img src="https://scontent.ftas1-1.fna.fbcdn.net/v/t51.75761-15/481372019_18060350389976617_5979284437859512917_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_ohc=Xazli0oyAhgQ7kNvwEZPQMW&_nc_oc=Adn1oVC0sXKQk2Ehj-1HThS82Z4h9RIZKMrY1v-qLlKEOdrOOlILuq4FoGLXbq2Sz-0&_nc_zt=23&_nc_ht=scontent.ftas1-1.fna&_nc_gid=4U-jGzcS8WWTF51qht0FzA&_nc_ss=8&oh=00_AfwTwhBYU2uuLdZ7zBQurLn78wborFbA4rPJMnpmzHxlCA&oe=69B728E8">
             </div>
             <h3>Home Kit 25/26</h3>
             <p class="price">500,000 so'm</p>
             <button class="btn" onclick="addToCart('Home Kit 25/26', 500000)">Savatga qo'shish</button>
         </div>
-        <div class="card">
-            <div class="img-container" onclick="openModal('Away Kit 25/26', 'Mavsumning ikkinchi formasi. To\'q rangli dizayn va yashil oq rangli elementlar bilan bezatilgan.', 'https://fulltimestore.in/cdn/shop/files/fc106ed7.jpg?v=1750172706')">
-                <img src="https://fulltimestore.in/cdn/shop/files/fc106ed7.jpg?v=1750172706">
-            </div>
-            <h3>Away Kit 25/26</h3>
-            <p class="price">500,000 so'm</p>
-            <button class="btn" onclick="addToCart('Away Kit 25/26', 500000)">Savatga qo'shish</button>
         </div>
-        <div class="card">
-            <div class="img-container" onclick="openModal('Classic Kit 2014', 'La Decima g\'alabasi xotirasiga bag\'ishlangan afsonaviy forma.', 'https://p16-oec-sg.ibyteimg.com/tos-alisg-i-aphluv4xwc-sg/img/VqbcmM/2025/4/30/f793d9a3-5d60-49b5-bd39-f020fb3c1d05.jpg~tplv-aphluv4xwc-resize-jpeg:700:0.jpg')">
-                <img src="https://p16-oec-sg.ibyteimg.com/tos-alisg-i-aphluv4xwc-sg/img/VqbcmM/2025/4/30/f793d9a3-5d60-49b5-bd39-f020fb3c1d05.jpg~tplv-aphluv4xwc-resize-jpeg:700:0.jpg">
-            </div>
-            <h3>Classic 2014</h3>
-            <p class="price">600,000 so'm</p>
-            <button class="btn" onclick="addToCart('Classic 2014', 600000)">Savatga qo'shish</button>
-        </div>
-        <div class="card">
-            <div class="img-container" onclick="openModal('Retro Kit 2017', 'Zinedine Zidane boshchiligida 3-marta ketma-ket CL yutilgan mavsum formasi.', 'https://retrosoccerkit.com/cdn/shop/files/reallong1718.png?v=1741106734&width=1080')">
-                <img src="https://retrosoccerkit.com/cdn/shop/files/reallong1718.png?v=1741106734&width=1080">
-            </div>
-            <h3>Retro 2017</h3>
-            <p class="price">700,000 so'm</p>
-            <button class="btn" onclick="addToCart('Retro 2017', 700000)">Savatga qo'shish</button>
-        </div>
-    </div>
 </div>
+
 <div id="acc" class="page-section">
     <h2>Aksessuarlar</h2>
     <div class="grid-container">
-        <div class="card">
-            <div class="img-container" onclick="openModal('Kepka', 'Real Madrid logotipi tushirilgan sifatli kepka.', 'https://images-na.ssl-images-amazon.com/images/I/61lLZAlEB5S._SS400_.jpg')">
-                <img src="https://images-na.ssl-images-amazon.com/images/I/61lLZAlEB5S._SS400_.jpg">
-            </div>
-            <h3>Kepka</h3>
-            <p class="price">100,000 so'm</p>
-            <button class="btn" onclick="addToCart('Kepka', 100000)">Savatga qo'shish</button>
         </div>
-        <div class="card">
-            <div class="img-container" onclick="openModal('Sharf', 'Stadionda jamoani qo\'llab-quvvatlash uchun qalin va chiroyli sharf.', 'https://us.shop.realmadrid.com/cdn/shop/files/rmcfmk0014-01.jpg?v=1767816051')">
-                <img src="https://us.shop.realmadrid.com/cdn/shop/files/rmcfmk0014-01.jpg?v=1767816051">
-            </div>
-            <h3>Muxlislar sharfi</h3>
-            <p class="price">260,000 so'm</p>
-            <button class="btn" onclick="addToCart('Muxlislar sharfi', 260000)">Savatga qo'shish</button>
-        </div>
-        <div class="card">
-            <div class="img-container" onclick="openModal('Koptok', 'Professional futbol koptogi, Real Madrid ramzlari bilan.', 'https://media.azadea.com/i/davinci/A7_HI2197_ONE__A701_ONE__101__01?$prd_large$')">
-                <img src="https://media.azadea.com/i/davinci/A7_HI2197_ONE__A701_ONE__101__01?$prd_large$">
-            </div>
-            <h3>Rasmiy koptok</h3>
-            <p class="price">300,000 so'm</p>
-            <button class="btn" onclick="addToCart('Rasmiy koptok', 300000)">Savatga qo'shish</button>
-        </div>
-    </div>
 </div>
+
 <div id="cart" class="page-section">
     <h2>Sizning Savatchangiz</h2>
     <div id="cart-list"><p style="text-align: center;">Savat hozircha bo'sh.</p></div>
-    <div class="total-box">
-        Jami: <span id="total-price">0</span> so'm
-    </div>
+    <div class="total-box">Jami: <span id="total-price">0</span> so'm</div>
+    <button id="checkout-btn" class="btn" style="display:none; background:#28a745; margin-top:20px;" onclick="goToContact()">Sotib olish</button>
 </div>
+
 <div id="contact" class="page-section">
-    <h2>Biz bilan bog'lanish</h2>
+    <h2>Bog'lanish va To'lov</h2>
     <div class="contact-card">
         <input type="text" placeholder="Ismingiz">
         <input type="email" placeholder="Email manzilingiz">
         <textarea rows="6" placeholder="Xabaringizni shu yerga yozing..."></textarea>
-        <button class="btn">Xabarni yuborish</button>
+        <button class="btn" onclick="finishOrder()">Yuborish</button>
     </div>
 </div>
+
 <div id="infoModal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal()">&times;</span>
         <img id="modal-img" src="" style="width:100%; height:280px; object-fit:contain; margin-bottom: 20px;">
-        <h2 id="modal-title" style="margin-bottom: 10px;"></h2>
-        <p id="modal-desc" style="line-height: 1.6; color: #555;"></p>
+        <h2 id="modal-title"></h2>
+        <p id="modal-desc"></p>
     </div>
 </div>
+
 <script>
     let cart = [];
     let total = 0;
+    let isBuying = false;
+
     function showSection(id) {
         document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-section'));
         document.getElementById(id).classList.add('active-section');
+        isBuying = (id === 'contact');
         window.scrollTo(0,0);
     }
+
     function addToCart(name, price) {
         cart.push({name, price});
         total += price;
         updateUI();
+        showAlert(`"${name}" savatga qo'shildi!`);
     }
-    function removeFromCart(index) {
-        total -= cart[index].price;
-        cart.splice(index, 1);
-        updateUI();
-    }
+
     function updateUI() {
         document.getElementById('cart-count').innerText = cart.length;
         const list = document.getElementById('cart-list');
+        const checkoutBtn = document.getElementById('checkout-btn');
         list.innerHTML = '';
         if (cart.length === 0) {
             list.innerHTML = '<p style="text-align: center;">Savat hozircha bo\'sh.</p>';
-            total = 0;
+            checkoutBtn.style.display = 'none';
         } else {
+            checkoutBtn.style.display = 'block';
             cart.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = 'cart-item';
-                div.innerHTML = `
-                    <span style="font-weight:bold;">${item.name}</span>
-                    <div>
-                        <span style="margin-right:20px;">${item.price.toLocaleString()} so'm</span>
-                        <button class="remove-btn" onclick="removeFromCart(${index})">O'chirish</button>
-                    </div>
-                `;
-                list.appendChild(div);
+                list.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>${item.price.toLocaleString()} so'm</span></div>`;
             });
         }
         document.getElementById('total-price').innerText = total.toLocaleString();
     }
+
+    function goToContact() { showSection('contact'); }
+
+    // YANGI: RASMDAGI KABI ALERT FUNKSIYASI
+    function showAlert(msg) {
+        document.getElementById('alertMessage').innerText = msg;
+        document.getElementById('customAlert').style.display = 'block';
+    }
+
+    function closeAlert() {
+        document.getElementById('customAlert').style.display = 'none';
+    }
+
+    function finishOrder() {
+        showAlert("Xabaringiz yuborildi!");
+        cart = []; total = 0; updateUI();
+        setTimeout(() => showSection('welcome'), 2000);
+    }
+
     function openModal(title, desc, img) {
         document.getElementById('modal-title').innerText = title;
         document.getElementById('modal-desc').innerText = desc;
         document.getElementById('modal-img').src = img;
         document.getElementById('infoModal').style.display = 'flex';
     }
-    function closeModal() {
-        document.getElementById('infoModal').style.display = 'none';
-    }
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('infoModal')) closeModal();
-    }
+
+    function closeModal() { document.getElementById('infoModal').style.display = 'none'; }
 </script>
+
 </body>
 </html>
